@@ -29,6 +29,8 @@ def compute_result_2(x):
     for i in range(len(x) - 1):
         numerator += x[i] * x[i + 1]
         denominator += x[i] ** 2
+        if i < 50:
+            continue
         cur = numerator / denominator
         max_res = max(max_res, cur)
     return max_res
