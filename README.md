@@ -19,7 +19,9 @@ A_n = \frac
 		{\sqrt
 			{\frac{1}{n}
 				\Sigma_{i = 1}^{n}(x_i - \overline{x})^2}}
-				\newline
+$$
+
+$$
 				n = 2, 3, ..., 383
 $$
 
