@@ -1,3 +1,4 @@
+import math
 import numpy as np
 
 sigma = 0.4935
@@ -20,6 +21,50 @@ def single_random_walk(start_point, step_num):
 
     # compute result
     return x
+
+
+# check the documentation for detailed definition
+def compute_12_2_1(x):
+    x_average = sum(x) / len(x)
+
+    # init as B1, C1, D1, but we don't need to compute A1, since the denominator would be zero
+    Bn = 0
+    Cn = 0
+    Dn = x[1] - x_average  # x_1 - x_average
+
+    max_an = float('-inf')
+    # compute An, Bn, Cn, Dn in each iteration, n from 2 to len(x)
+    for n in range(2, len(x)):
+        # for each iteration, Bn = Bn + xxx
+        Bn += x[n - 1] * (x[n] - x[n - 1])
+        Cn += x[n - 1] ** 2
+        Dn += (x[n] - x_average) ** 2
+
+        if n < 30:
+            continue
+        else:
+            # only compute An from 30 to len(x) - 1
+            max_an = max(max_an, Bn / (Cn * math.sqrt(Dn / n)))
+    return max_an
+
+
+# check the documentation for detailed definition
+def compute_12_2_2(x):
+    # init as B1, C1, D1, but we don't need to compute A1, since the denominator would be zero
+    Bn = 0
+    Cn = 0
+
+    max_an = float('-inf')
+    for n in range(2, len(x)):
+        Bn += x[n - 1] * (x[n] - x[n - 1])
+        Cn = x[n - 1] ** 2
+        An = n * Bn / Cn
+
+        if n < 30:
+            continue
+        else:
+            max_an = max(max_an, An)
+        return max_an
 
 
 def compute_result_2(x):
@@ -69,5 +114,5 @@ def simulate(simulation_num, start_point, step_num, compute_func):
 
 
 if __name__ == '__main__':
-    res = simulate(100000, 4.849, 384, compute_result_2)
+    res = simulate(10000, 4.849, 383, compute_12_2_2)
     print("1%: {}, 5%: {}, 10%: {}".format(res[0], res[1], res[2]))
