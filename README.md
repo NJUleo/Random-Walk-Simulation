@@ -30,6 +30,7 @@ Sup\,A_n = max_{n = 30}^{383}(A_n)
 $$
 
 For convenience, define the following names:
+
 $$
 B_n = \Sigma_{i = 1}^{n}x_{i - 1}(x_i - x_{i - 1})
 $$
